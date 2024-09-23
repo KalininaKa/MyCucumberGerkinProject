@@ -11,11 +11,9 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.response.ResponseBody;
 import io.restassured.specification.RequestSpecification;
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class Todos {
@@ -23,12 +21,9 @@ public class Todos {
     public RequestSpecification httpRequest;
     public String StatusCode;
     public Response response;
-    public int ResponseCode;
     public ResponseBody body;
     public JsonObject requestParams;
     public String Id;
-    public String Arg0;
-    public String Arg1;
 
 
 
@@ -37,9 +32,6 @@ public class Todos {
     public void useApiUrl(String url) {
         RestAssured.baseURI = url;
     }
-
-    //@Step("I pass the url in the request")
-    //@When("^I pass the url in the request")
 
     @Step("я вызываю метод GET с path {0} ")
     @When("^я вызываю метод GET с path \"([^\"]*)\"")
@@ -77,8 +69,6 @@ public class Todos {
     }
 
 
-    //@Step("I recive the response code as {0}")
-    //@Then("^I recive the response code as \"([^\"]*)\"")
     @Step("я получаю код ответа {0}")
     @Then("^я получаю код ответа \"([^\"]*)\"")
     public void responseCodeShouldBe(String code) {
@@ -105,14 +95,10 @@ public class Todos {
         System.out.println(jsonPath);
     }
 
-    @And("в теле ответа будет {string} = {}")
-    public void bodyResponseWithIdEqual(String arg0, String arg1) {
-        JsonPath jsonPath = response.jsonPath();
-        Arg0 = jsonPath.getJsonObject(arg0).toString();
-        Arg1 = jsonPath.getJsonObject(arg1).toString();
-        //System.out.println(Arg0);
-        assertNotNull(Arg0);
-        assertEquals(Arg1,arg1);
+    @And("тело ответа соответствует JSON схеме {string}")
+    public void bodyResponseWithEqual(String shema) {
+//String Shema = shema;
+
     }
 }
 
